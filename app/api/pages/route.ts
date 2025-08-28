@@ -6,8 +6,25 @@ const PROPERTY_ID = process.env.GA4_PROPERTY_ID || "314322245";
 function client() {
   const client_email = process.env.GA4_CLIENT_EMAIL;
   const rawKey = process.env.GA4_PRIVATE_KEY;
-  if (!client_email || !rawKey) throw new Error("Saknar GA4 creds: GA4_CLIENT_EMAIL / GA4_PRIVATE_KEY");
-  const private_key = rawKey.includes("\\n") ? rawKey.replace(/\\n/g, "\n") : rawKey;
+  
+  if (!client_email || !rawKey) {
+    throw new Error("Saknar GA4 creds: GA4_CLIENT_EMAIL / GA4_PRIVATE_KEY");
+  }
+  
+  // Förbättrad hantering av privata nycklar
+  let private_key = rawKey;
+  
+  // Hantera olika format av privata nycklar
+  if (rawKey.includes("\\n")) {
+    private_key = rawKey.replace(/\\n/g, "\n");
+  } else if (rawKey.includes("-----BEGIN PRIVATE KEY-----") && !rawKey.includes("\n")) {
+    // Om nyckeln är på en rad, lägg till radbrytningar
+    private_key = rawKey.replace(/-----BEGIN PRIVATE KEY-----/, "-----BEGIN PRIVATE KEY-----\n")
+                        .replace(/-----END PRIVATE KEY-----/, "\n-----END PRIVATE KEY-----")
+                        .replace(/(.{64})/g, "$1\n")
+                        .replace(/\n\n/g, "\n");
+  }
+  
   return new BetaAnalyticsDataClient({ credentials: { client_email, private_key } });
 }
 
