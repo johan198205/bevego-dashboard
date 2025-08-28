@@ -5,8 +5,8 @@ import { BetaAnalyticsDataClient } from "@google-analytics/data";
 const PROPERTY_ID = process.env.GA4_PROPERTY_ID || "314322245";
 
 function client() {
-  const client_email = process.env.GA4_CLIENT_EMAIL as string;
-  const rawKey = process.env.GA4_PRIVATE_KEY as string;
+  const client_email = process.env.GA4_CLIENT_EMAIL;
+  const rawKey = process.env.GA4_PRIVATE_KEY;
   if (!client_email || !rawKey) throw new Error("Saknar GA4 creds: GA4_CLIENT_EMAIL / GA4_PRIVATE_KEY");
   const private_key = rawKey.includes("\\n") ? rawKey.replace(/\\n/g, "\n") : rawKey;
   return new BetaAnalyticsDataClient({ credentials: { client_email, private_key } });
