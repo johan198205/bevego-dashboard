@@ -149,18 +149,7 @@ export default function PasswordProtection({ children }: { children: React.React
           </button>
         </form>
 
-        <div style={{
-          marginTop: "1.5rem",
-          padding: "1rem",
-          background: "#f9fafb",
-          borderRadius: "8px",
-          fontSize: "12px",
-          color: "#6b7280",
-          textAlign: "center"
-        }}>
-          <strong>Standard lösenord:</strong> admin123<br />
-          <em>Ändra NEXT_PUBLIC_DASHBOARD_PASSWORD i miljövariabler för att använda eget lösenord</em>
-        </div>
+
       </div>
     </div>
   );
