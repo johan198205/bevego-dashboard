@@ -1,0 +1,185 @@
+/* ───────────────────────────────────────────────────────────
+   THEME VARIABLES
+   Light = default. Dark aktiveras med .theme-dark på <html>.
+   ─────────────────────────────────────────────────────────── */
+:root{
+  /* LIGHT */
+  --bg:#f6f7fb;
+  --sidebar:#ffffff;
+  --surface:#ffffff;          /* cards */
+  --surface-2:#f3f4f6;        /* headers / table head */
+  --border:#e5e7eb;
+  --text:#0f172a;
+  --muted:#64748b;
+  --accent:#7c3aed;           /* purple */
+  --accent-2:#0ea5e9;         /* cyan */
+  --grid:#e5e7eb;
+}
+
+.theme-dark{
+  --bg:#0b1220;
+  --sidebar:#0d1324;
+  --surface:#0f172a;
+  --surface-2:#121a2f;
+  --border:#1f2a44;
+  --text:#e2e8f0;
+  --muted:#94a3b8;
+  --accent:#7c3aed;
+  --accent-2:#22d3ee;
+  --grid:#243149;
+}
+
+:root{
+  /* ...dina befintliga variabler */
+  --tooltip-bg:#ffffff;
+  --tooltip-fg:#0f172a;
+  --tooltip-border:#e5e7eb;
+}
+.theme-dark{
+  --tooltip-bg:rgba(15,23,42,.94);
+  --tooltip-fg:#e2e8f0;
+  --tooltip-border:#1f2a44;
+}
+
+
+/* ───────────────────────────────────────────────────────────
+   BASE / LAYOUT
+   ─────────────────────────────────────────────────────────── */
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app { display:grid; grid-template-columns: 240px 1fr; min-height:100vh; }
+.sidebar{ background:var(--sidebar); border-right:1px solid var(--border); padding:16px 12px; }
+.topbar{ display:flex; align-items:center; gap:12px; padding:16px; border-bottom:1px solid var(--border); }
+.content{ display:grid; grid-template-rows:auto 1fr; min-height:100vh; }
+.container{ padding:16px 20px; }
+
+/* ───────────────────────────────────────────────────────────
+   CARDS / BUTTONS / INPUTS
+   ─────────────────────────────────────────────────────────── */
+.card{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:16px!important; }
+.card h3{ font-size:18px; }
+
+.modern-card{ box-shadow: 0 12px 30px rgba(0,0,0,.08); }
+
+.btn{
+  background:linear-gradient(90deg, var(--accent), #5b21b6);
+  color:white; border:0; border-radius:10px;
+  height:40px; padding:0 14px; cursor:pointer;
+}
+.btn.secondary{
+  background:linear-gradient(90deg, #1f2937, #0b1220);
+  border:1px solid var(--border);
+  color:#fff;                 /* <-- alltid vit text */
+}
+.theme-dark .btn.secondary{ color:#fff; }
+.btn.secondary:hover{ filter: brightness(1.08); }
+.btn:disabled{ opacity:.6; cursor:not-allowed }
+
+/* Generell input (om du använder textfält någonstans) */
+input, .search{
+  background: var(--surface);
+  color: var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  height:40px; padding:0 12px;
+}
+
+/* ───────────────────────────────────────────────────────────
+   NAV
+   ─────────────────────────────────────────────────────────── */
+.navitem{ color:#475569; text-decoration:none; }
+.theme-dark .navitem{ color:#cbd5e1; }
+
+/* ───────────────────────────────────────────────────────────
+   CHIPS / HEADINGS / UTILITIES
+   ─────────────────────────────────────────────────────────── */
+.chip{
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(124,58,237,.18);
+  color:#4c1d95;
+  padding:6px 10px; border:1px solid rgba(124,58,237,.3);
+  border-radius:12px; font-weight:700; font-size:12px;
+}
+.theme-dark .chip{ color:#d6bcff; }
+
+.h2{ font-weight:800; font-size:18px; margin:0 0 10px }
+.muted{ color: var(--muted); }
+
+/* ───────────────────────────────────────────────────────────
+   TABLES (theme-aware)
+   ─────────────────────────────────────────────────────────── */
+.table-wrap{ border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.table-wrap table{ width:100%; border-collapse:collapse; font-size:14px; color:var(--text); }
+.table-wrap thead th{
+  background:var(--surface-2);
+  color:var(--muted);
+  text-transform:uppercase; letter-spacing:.02em; font-weight:700;
+  padding:10px 12px; text-align:left; border-bottom:1px solid var(--border);
+}
+.table-wrap tbody td{ padding:10px 12px; border-bottom:1px solid rgba(0,0,0,.06); }
+.theme-dark .table-wrap tbody td{ border-bottom:1px solid rgba(255,255,255,.06); }
+.table-wrap tbody tr:nth-child(even){ background:rgba(0,0,0,.02); }
+.theme-dark .table-wrap tbody tr:nth-child(even){ background:rgba(255,255,255,.02); }
+.table-wrap tbody tr:hover{ background:rgba(0,0,0,.04); }
+.theme-dark .table-wrap tbody tr:hover{ background:rgba(255,255,255,.04); }
+
+/* ───────────────────────────────────────────────────────────
+   DATEPICKER (react-datepicker) – snygg & tema-anpassad
+   ─────────────────────────────────────────────────────────── */
+/* Knappen som vi använder som customInput */
+.date-input{
+  background: var(--surface);
+  color: var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  height:40px;
+  padding:0 12px;
+  display:inline-flex; align-items:center;
+  gap:6px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.04);
+}
+
+/* Själva kalendern */
+.dp, .react-datepicker{
+  background: var(--surface);
+  border:1px solid var(--border);
+  color: var(--text);
+  border-radius:12px !important;
+  box-shadow: 0 14px 38px rgba(0,0,0,.12);
+}
+.react-datepicker__header{
+  background: var(--surface-2) !important;
+  border-bottom:1px solid var(--border) !important;
+}
+.react-datepicker__current-month,
+.react-datepicker__day-name{ color: var(--muted) !important; }
+.react-datepicker__day{ color: var(--text) !important; }
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected{
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-radius:8px !important;
+}
+.react-datepicker__day:hover{
+  background: rgba(124,58,237,.12) !important;
+  border-radius:8px !important;
+}
+.dp-popper{ z-index: 50; } /* över diagram etc */
+
+
+
+/* ───────────────────────────────────────────────────────────
+   SCROLLBAR
+   ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar{ width:10px; height:10px }
+::-webkit-scrollbar-thumb{ background:#cbd5e1; border-radius:10px }
+.theme-dark ::-webkit-scrollbar-thumb{ background:#1f2a44 }
