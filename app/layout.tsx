@@ -24,6 +24,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="sv">
+      <head>
+        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate" />
+        <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate" />
+      </head>
       <body>
         <PasswordProtection>
           {children}
