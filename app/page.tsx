@@ -158,7 +158,7 @@ export default function Page() {
 
   const chartRef = useRef<any>(null);
 
-  const DateBtn = forwardRef<HTMLInputElement, any>(({ value, onClick }, ref) => (
+  const DateBtn = forwardRef<HTMLButtonElement, any>(({ value, onClick }, ref) => (
     <button onClick={onClick} ref={ref} className="date-input">
       <span style={{ marginRight: 8 }}>📅</span>
       {value || "Välj datum"}

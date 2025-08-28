@@ -296,10 +296,11 @@ export async function POST(req: Request) {
     const toolResults: Record<string, ToolResult> = {};
     while (comp.choices[0].message.tool_calls?.length) {
       for (const call of comp.choices[0].message.tool_calls) {
-        const args = JSON.parse(call.function.arguments || "{}");
-        let result: ToolResult | null = null;
+        if (call.type === 'function' && call.function) {
+          const args = JSON.parse(call.function.arguments || "{}");
+          let result: ToolResult | null = null;
 
-        switch (call.function.name) {
+          switch (call.function.name) {
           case "fetchKpis":
             result = { type: "kpis", data: await fetchKpis(args.startDate, args.endDate, args.metrics as MKey[]) };
             break;
@@ -325,8 +326,9 @@ export async function POST(req: Request) {
               ),
             };
             break;
+                 }
+         toolResults[call.id] = result!;
         }
-        toolResults[call.id] = result!;
       }
 
       const toolMsgs = comp.choices[0].message.tool_calls.map((call) => ({
